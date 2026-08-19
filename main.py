@@ -1,6 +1,6 @@
 import telebot, random
 
-BOT_TOKEN = "8867209550:AAGU54ELxJDK9jwdil2uvITuqem2cZLjGjY"
+BOT_TOKEN = "8607253442:AAEoFCOSomIGcFLm6RiB3NMUkrjD_yut5ow"
 BOSS_ID = 7662509798  
 
 bot = telebot.TeleBot(BOT_TOKEN)

@@ -198,5 +198,6 @@ def setup_and_start_game(message, mode):
         player_names[pid] = user_data[pid]['name']
         if game_mode == "NOMZOD" and i < len(ANONYMOUS_NAMES): player_names[pid] = ANONYMOUS_NAMES[i]
     pool = random.sample(list(ROLES_REWARDS.keys()), len(game_players))
-    bot.infinity_polling()
+bot.infinity_polling()
+    
     

@@ -1,14 +1,4 @@
-import telebot, random, threading, os
-from telebot import types
-from flask import Flask
-
-app = Flask('')
-@app.route('/')
-def home(): return "OK"
-
-def run_web():
-    try: app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
-    except: pass
+import telebot, random
 
 BOT_TOKEN = "8867209550:AAGU54ELxJDK9jwdil2uvITuqem2cZLjGjY"
 BOSS_ID = 7662509798  
@@ -79,7 +69,7 @@ def start_cmd(message):
     GOLD_PRICE = random.randint(4600, 6009)
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
     markup.add(types.KeyboardButton("👤 Profil"), types.KeyboardButton("🛒 Do'kon"))
-    bot.send_message(message.chat.id, "🔥 Meystrik Mafia botiga xush kelibsiz!", reply_markup=markup)
+    bot.send_message(message.chat.id, f"🔥 Meystrik Mafia botiga xush kelibsiz, {message.from_user.first_name}!", reply_markup=markup)
 
 @bot.message_handler(func=lambda msg: game_started and game_phase == "NIGHT" and msg.chat.id == game_chat_id)
 def mute_night_chat(message):
@@ -155,7 +145,7 @@ def transfer_res(message):
     try:
         tid = message.reply_to_message.from_user.id
         tname = player_names.get(tid, message.reply_to_message.from_user.first_name)
-        amt = int(message.text.split())
+        amt = int(message.text.split()[1])
         if amt <= 0 or uid == tid: return
         check_user(uid)
         check_user(tid, tname)
@@ -176,7 +166,7 @@ def add_res_reply(message):
     try:
         tid = message.reply_to_message.from_user.id
         tname = player_names.get(tid, message.reply_to_message.from_user.first_name)
-        amt = int(message.text.split())
+        amt = int(message.text.split()[1])
         check_user(tid, tname)
         if "pul" in message.text: user_data[tid]['money'] += amt
         else: user_data[tid]['diamonds'] += amt
@@ -208,3 +198,7 @@ def setup_and_start_game(message, mode):
     if game_mode == "NOMZOD":
         for i, pid in enumerate(game_players):
             if i < len(ANONYMOUS_NAMES): player_names[pid] = ANONYMOUS_NAMES[i]
+    if game_mode != "NOMZOD":
+        for pid in game_players: player_names[pid] = user_data[pid]['name']
+    if game_mode == "ZOMBIE":
+        

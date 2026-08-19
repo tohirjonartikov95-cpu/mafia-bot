@@ -205,4 +205,6 @@ def show_top(message):
 @bot.message_handler(commands=['join'])
 def join_game(message):
     if game_started: return
-    pid = message.from_user.id
+    pid = message.from_user.id 
+    bot.infinity_polling()
+    
